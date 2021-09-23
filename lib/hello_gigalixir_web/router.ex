@@ -16,6 +16,7 @@ defmodule HelloGigalixirWeb.Router do
   scope "/", HelloGigalixirWeb do
     pipe_through :browser
 
+    resources "/users", UserController
     get "/", PageController, :index
   end
 
