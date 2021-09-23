@@ -15,7 +15,7 @@ if config_env() == :prod do
   config :hello_gigalixir, HelloGigalixir.Repo,
     # ssl: true,
     url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "2")
 
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
@@ -25,18 +25,16 @@ if config_env() == :prod do
       """
 
   config :hello_gigalixir, HelloGigalixirWeb.Endpoint,
-    http: [
-      port: String.to_integer(System.get_env("PORT") || "4000"),
-      transport_options: [socket_opts: [:inet6]]
-    ],
-    secret_key_base: secret_key_base
+    server: true,
+    http: [port: {:system, "PORT"}],
+    url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 443]
 
   # ## Using releases (Elixir v1.9+)
   #
   # If you are doing OTP releases, you need to instruct Phoenix
   # to start each relevant endpoint:
   #
-  config :hello_gigalixir, HelloGigalixirWeb.Endpoint, server: true
+  # config :hello_gigalixir, HelloGigalixirWeb.Endpoint, server: true
   #
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.
