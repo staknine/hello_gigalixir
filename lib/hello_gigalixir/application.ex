@@ -6,6 +6,8 @@ defmodule HelloGigalixir.Application do
   use Application
 
   def start(_type, _args) do
+    topologies = Application.get_env(:libcluster, :topologies) || []
+
     children = [
       # Start the Ecto repository
       HelloGigalixir.Repo,
@@ -14,9 +16,10 @@ defmodule HelloGigalixir.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: HelloGigalixir.PubSub},
       # Start the Endpoint (http/https)
-      HelloGigalixirWeb.Endpoint
+      HelloGigalixirWeb.Endpoint,
       # Start a worker by calling: HelloGigalixir.Worker.start_link(arg)
       # {HelloGigalixir.Worker, arg}
+      {Cluster.Supervisor, [topologies, [name: HelloGigalixir.ClusterSupervisor]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
