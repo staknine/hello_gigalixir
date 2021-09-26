@@ -44,12 +44,10 @@ jobs:
     - name: Check Formatting
       run: mix format --check-formatted
 
-on:
-  push:
-    branches: [ master ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.event.push
     needs: test
     steps:
       - uses: actions/checkout@v1
