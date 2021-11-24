@@ -1,5 +1,7 @@
 # HelloGigalixir
 
+HelloGigalixir is a demo project for deploying Gigalixir which was selected as the **Editor's Choice** in [StakeNine's Best Hosting Providers for Elixir](https://staknine.com/best-cloud-hosting-platforms-elixir-phoenix/?utm_source=github.com&utm_medium=referral&utm_campaign=readme) article.
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
